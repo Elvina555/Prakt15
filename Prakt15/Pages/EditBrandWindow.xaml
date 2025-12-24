@@ -1,0 +1,61 @@
+﻿<Window x:Class="Prakt15.EditBrandWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Редактирование бренда"
+        Height="271"
+        Width="619"
+        Background="#dfeaeb"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="Редактирование названия бренда"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Foreground="#333333"
+                   Margin="0,0,0,10"/>
+
+        <TextBox Grid.Row="1" 
+                 x:Name="txtBrandName"
+                 Height="40"
+                 FontSize="16"
+                 Padding="10">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="BorderBrush" Value="#00C4B4"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right"
+                    Margin="0,15,0,0">
+            <Button Content="Сохранить"
+                    Background="#00C4B4"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Width="100"
+                    Height="35"
+                    Margin="0,0,10,0"
+                    Click="BtnSave_Click"
+                    Cursor="Hand"/>
+
+            <Button Content="Отмена"
+                    Background="#00b4c4"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Width="100"
+                    Height="35"
+                    Click="BtnCancel_Click"
+                    Cursor="Hand"/>
+        </StackPanel>
+    </Grid>
+</Window>
