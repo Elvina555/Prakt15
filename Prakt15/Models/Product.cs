@@ -17,6 +17,5 @@ public partial class Product
 
     public virtual Brand? Brand { get; set; }
     public virtual Category? Category { get; set; }
-
     public virtual ICollection<ProductTag> ProductTags { get; set; } = new List<ProductTag>();
 }
