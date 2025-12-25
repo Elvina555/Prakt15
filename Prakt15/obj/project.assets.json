@@ -4728,11 +4728,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\eivin\\Desktop\\Практические\\Prakt15\\Prakt15\\Prakt15.csproj",
+      "projectUniqueName": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Prakt15.csproj",
       "projectName": "Prakt15",
-      "projectPath": "C:\\Users\\eivin\\Desktop\\Практические\\Prakt15\\Prakt15\\Prakt15.csproj",
+      "projectPath": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Prakt15.csproj",
       "packagesPath": "C:\\Users\\eivin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\eivin\\Desktop\\Практические\\Prakt15\\Prakt15\\obj\\",
+      "outputPath": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

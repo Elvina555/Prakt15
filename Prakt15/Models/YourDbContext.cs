@@ -71,9 +71,8 @@ public partial class YourDbContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BrandId).HasColumnName("brand_id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
-            entity.Property(e => e.CreatedAt)
-                .HasMaxLength(255)
-                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+
             entity.Property(e => e.Description)
                 .HasMaxLength(255)
                 .HasColumnName("description");

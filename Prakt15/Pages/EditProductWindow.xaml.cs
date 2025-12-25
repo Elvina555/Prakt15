@@ -76,7 +76,7 @@ namespace Prakt15
                 txtPrice.Text = _product.Price?.ToString() ?? "0";
                 txtStock.Text = _product.Stock?.ToString() ?? "0";
                 txtRating.Text = _product.Rating?.ToString() ?? "0";
-                txtCreatedAt.Text = _product.CreatedAt ?? string.Empty;
+                txtCreatedAt.Text = _product.CreatedAt?.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString("yyyy-MM-dd");
 
                 if (_product.CategoryId.HasValue)
                 {
@@ -150,9 +150,9 @@ namespace Prakt15
                     return;
                 }
 
-                if (!ProductValidator.ValidateRequiredField(txtCreatedAt.Text, "дату создания", out errorMessage))
+                if (!DateTime.TryParse(txtCreatedAt.Text, out DateTime createdAt))
                 {
-                    MessageBox.Show(errorMessage, "Ошибка",
+                    MessageBox.Show("Введите корректную дату в формате ГГГГ-ММ-ДД", "Ошибка",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                     txtCreatedAt.Focus();
                     return;
@@ -188,7 +188,7 @@ namespace Prakt15
                 _product.Description = txtDescription.Text;
                 _product.Price = price;
                 _product.Stock = stock;
-                _product.CreatedAt = txtCreatedAt.Text;
+                _product.CreatedAt = createdAt; 
                 _product.Rating = rating;
 
                 _product.CategoryId = ((Category)cmbCategory.SelectedItem).Id;

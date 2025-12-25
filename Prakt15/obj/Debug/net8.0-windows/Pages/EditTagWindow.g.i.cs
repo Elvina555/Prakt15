@@ -60,7 +60,7 @@ namespace Prakt15 {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Prakt15;V1.0.0.0;component/pages/edittagwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Prakt15;component/pages/edittagwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Pages\EditTagWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

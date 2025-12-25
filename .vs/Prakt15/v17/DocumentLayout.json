@@ -1,12 +1,148 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\eivin\\Desktop\\\u041F\u0440\u0430\u043A\u0442\u0438\u0447\u0435\u0441\u043A\u0438\u0435\\Prakt15\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\eivin\\Desktop\\Prakt15\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\pages\\visitorpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\pages\\visitorpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\pages\\managerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\pages\\managerpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\pages\\managerpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\pages\\managerpage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\pages\\managetagswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\pages\\managetagswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\pages\\visitorpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\pages\\visitorpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|c:\\users\\eivin\\desktop\\prakt15\\prakt15\\pages\\managecategorieswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{53CD5398-2072-4926-8443-C735D372761A}|Prakt15\\Prakt15.csproj|solutionrelative:prakt15\\pages\\managecategorieswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "VisitorPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\VisitorPage.xaml.cs",
+              "RelativeDocumentMoniker": "Prakt15\\Pages\\VisitorPage.xaml.cs",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\VisitorPage.xaml.cs",
+              "RelativeToolTip": "Prakt15\\Pages\\VisitorPage.xaml.cs",
+              "ViewState": "AgIAAPMAAAAAAAAAAAAUwBkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T05:52:21.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VisitorPage.xaml",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\VisitorPage.xaml",
+              "RelativeDocumentMoniker": "Prakt15\\Pages\\VisitorPage.xaml",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\VisitorPage.xaml",
+              "RelativeToolTip": "Prakt15\\Pages\\VisitorPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-25T05:52:18.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ManageTagsWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManageTagsWindow.xaml",
+              "RelativeDocumentMoniker": "Prakt15\\Pages\\ManageTagsWindow.xaml",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManageTagsWindow.xaml",
+              "RelativeToolTip": "Prakt15\\Pages\\ManageTagsWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-25T05:48:01.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ManagerPage.xaml",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManagerPage.xaml",
+              "RelativeDocumentMoniker": "Prakt15\\Pages\\ManagerPage.xaml",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManagerPage.xaml",
+              "RelativeToolTip": "Prakt15\\Pages\\ManagerPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-25T05:12:42.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ManagerPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManagerPage.xaml.cs",
+              "RelativeDocumentMoniker": "Prakt15\\Pages\\ManagerPage.xaml.cs",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManagerPage.xaml.cs",
+              "RelativeToolTip": "Prakt15\\Pages\\ManagerPage.xaml.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAmwJIAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-25T04:13:21.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\App.xaml",
+              "RelativeDocumentMoniker": "Prakt15\\App.xaml",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\App.xaml",
+              "RelativeToolTip": "Prakt15\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-25T04:54:54.847Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "Prakt15\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\MainWindow.xaml",
+              "RelativeToolTip": "Prakt15\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-25T04:12:52.261Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ManageCategoriesWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManageCategoriesWindow.xaml",
+              "RelativeDocumentMoniker": "Prakt15\\Pages\\ManageCategoriesWindow.xaml",
+              "ToolTip": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Pages\\ManageCategoriesWindow.xaml",
+              "RelativeToolTip": "Prakt15\\Pages\\ManageCategoriesWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-12-25T04:23:37.118Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

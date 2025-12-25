@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F/2h4YgegzQ=",
+  "dgSpecHash": "QH/PE+Nvd4U=",
   "success": true,
-  "projectFilePath": "C:\\Users\\eivin\\Desktop\\Практические\\Prakt15\\Prakt15\\Prakt15.csproj",
+  "projectFilePath": "C:\\Users\\eivin\\Desktop\\Prakt15\\Prakt15\\Prakt15.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\eivin\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\eivin\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

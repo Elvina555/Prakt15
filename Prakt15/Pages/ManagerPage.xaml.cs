@@ -258,7 +258,6 @@ namespace Prakt15
 
         private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
-            txtSearch.Clear();
             cmbCategory.SelectedIndex = -1;
             cmbBrand.SelectedIndex = -1;
             txtPriceFrom.Clear();
@@ -305,9 +304,23 @@ namespace Prakt15
 
         private void BtnEditProduct_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag != null &&
-                double.TryParse(button.Tag.ToString(), out double productId))
+            if (sender is Button button && button.Tag != null)
             {
+                object tagValue = button.Tag;
+                double productId = 0;
+
+                if (tagValue is double d)
+                    productId = d;
+                else if (tagValue is int i)
+                    productId = i;
+                else if (tagValue is string str && double.TryParse(str, out double parsed))
+                    productId = parsed;
+                else
+                {
+                    MessageBox.Show("Не удалось получить ID товара", "Ошибка",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
                 try
                 {
                     var product = _db.Products
@@ -375,7 +388,7 @@ namespace Prakt15
 
         private void ListViewProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Пустая реализация
+
         }
 
         private void TxtSearch_PreviewKeyDown(object sender, KeyEventArgs e)
