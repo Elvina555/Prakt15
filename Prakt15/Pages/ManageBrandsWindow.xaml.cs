@@ -43,7 +43,10 @@ namespace Prakt15
             try
             {
                 _brands.Clear();
-                var brands = _db.Brands.ToList();
+                var brands = _db.Brands
+                    .OrderBy(b => b.Name)
+                    .ToList();
+
                 foreach (var brand in brands)
                 {
                     _brands.Add(brand);
@@ -65,14 +68,16 @@ namespace Prakt15
             {
                 string brandName = txtNewBrand.Text.Trim();
 
-                if (!EntityValidator.ValidateName(brandName, "бренда", out string errorMessage))
+             
+                if (string.IsNullOrWhiteSpace(brandName))
                 {
-                    MessageBox.Show(errorMessage, "Ошибка",
+                    MessageBox.Show("Название бренда не может быть пустым", "Ошибка",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     txtNewBrand.Focus();
                     return;
                 }
 
+               
                 bool exists = _db.Brands.Any(b =>
                     b.Name != null && b.Name.ToLower() == brandName.ToLower());
 
@@ -84,11 +89,15 @@ namespace Prakt15
                     txtNewBrand.Focus();
                     return;
                 }
+                int maxId = _db.Brands.Any() ? _db.Brands.Max(b => b.Id) : 0;
+                int newId = maxId + 1;
 
                 var newBrand = new Brand
                 {
+                    Id = newId,
                     Name = brandName
                 };
+
 
                 _db.Brands.Add(newBrand);
                 _db.SaveChanges();
@@ -98,10 +107,23 @@ namespace Prakt15
 
                 txtNewBrand.Clear();
                 LoadBrands();
+                txtNewBrand.Focus();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при добавлении бренда: {ex.Message}", "Ошибка",
+
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.AppendLine("Ошибка при добавлении бренда:");
+                errorMessage.AppendLine(ex.Message);
+
+                if (ex.InnerException != null)
+                {
+                    errorMessage.AppendLine();
+                    errorMessage.AppendLine("Детали:");
+                    errorMessage.AppendLine(ex.InnerException.Message);
+                }
+
+                MessageBox.Show(errorMessage.ToString(), "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -112,12 +134,16 @@ namespace Prakt15
             {
                 if (sender is Button button && button.Tag != null)
                 {
-                    if (double.TryParse(button.Tag.ToString(), out double brandId))
+                    if (int.TryParse(button.Tag.ToString(), out int brandId))
                     {
-                        var brand = _db.Brands
-                            .FirstOrDefault(b => Math.Abs(b.Id - brandId) < 0.001);
+                        var brand = _db.Brands.FirstOrDefault(b => b.Id == brandId);
 
-                        if (brand == null) return;
+                        if (brand == null)
+                        {
+                            MessageBox.Show("Бренд не найден", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
                         var editWindow = new EditBrandWindow(brand);
                         if (editWindow.ShowDialog() == true)
@@ -140,15 +166,18 @@ namespace Prakt15
             {
                 if (sender is Button button && button.Tag != null)
                 {
-                    if (double.TryParse(button.Tag.ToString(), out double brandId))
+                    if (int.TryParse(button.Tag.ToString(), out int brandId))
                     {
-                        var brand = _db.Brands
-                            .FirstOrDefault(b => Math.Abs(b.Id - brandId) < 0.001);
+                        var brand = _db.Brands.FirstOrDefault(b => b.Id == brandId);
 
-                        if (brand == null) return;
+                        if (brand == null)
+                        {
+                            MessageBox.Show("Бренд не найден", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
-                        bool hasProducts = _db.Products.Any(p =>
-                            p.BrandId.HasValue && Math.Abs(p.BrandId.Value - brandId) < 0.001);
+                        bool hasProducts = _db.Products.Any(p => p.BrandId == brandId);
 
                         if (hasProducts)
                         {
@@ -168,13 +197,21 @@ namespace Prakt15
 
                         if (result == MessageBoxResult.Yes)
                         {
-                            _db.Brands.Remove(brand);
-                            _db.SaveChanges();
+                            try
+                            {
+                                _db.Brands.Remove(brand);
+                                _db.SaveChanges();
 
-                            MessageBox.Show($"Бренд \"{brand.Name}\" успешно удален", "Успех",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show($"Бренд \"{brand.Name}\" успешно удален", "Успех",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
 
-                            LoadBrands();
+                                LoadBrands();
+                            }
+                            catch (Exception deleteEx)
+                            {
+                                MessageBox.Show($"Ошибка при удалении: {deleteEx.Message}", "Ошибка",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
                     }
                 }
@@ -196,9 +233,24 @@ namespace Prakt15
 
             string searchText = txtSearch.Text.ToLower();
             var filtered = _brands.Where(b =>
-                b.Name != null && b.Name.ToLower().Contains(searchText)).ToList();
+                b.Name != null && b.Name.ToLower().Contains(searchText))
+                .ToList();
 
             lstBrands.ItemsSource = filtered;
+        }
+
+        private void TxtNewBrand_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                BtnAdd_Click(sender, e);
+            }
+        }
+
+        private void BtnClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Clear();
+            lstBrands.ItemsSource = _brands;
         }
     }
 }

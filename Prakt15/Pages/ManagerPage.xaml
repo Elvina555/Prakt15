@@ -340,7 +340,7 @@
                                        FontSize="14"
                                        Foreground="White"
                                        FontWeight="Bold"
-                                       Text="Показано: 150"/>
+                                       Text="Показано: 152"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1"

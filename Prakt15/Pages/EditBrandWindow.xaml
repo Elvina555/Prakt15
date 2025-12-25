@@ -25,7 +25,8 @@
                  x:Name="txtBrandName"
                  Height="40"
                  FontSize="16"
-                 Padding="10">
+                 Padding="10"
+                 KeyDown="TxtBrandName_KeyDown">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="BorderBrush" Value="#00C4B4"/>
@@ -49,7 +50,7 @@
                     Cursor="Hand"/>
 
             <Button Content="Отмена"
-                    Background="#00b4c4"
+                    Background="#00C4B4"
                     Foreground="White"
                     FontWeight="Bold"
                     Width="100"

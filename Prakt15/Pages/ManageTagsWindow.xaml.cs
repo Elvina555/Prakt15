@@ -44,7 +44,9 @@ namespace Prakt15
             {
                 _tags.Clear();
 
-                var tags = _db.Tags.ToList();
+                var tags = _db.Tags
+                    .OrderBy(t => t.Name)
+                    .ToList();
                 foreach (var tag in tags)
                 {
                     _tags.Add(tag);
@@ -66,14 +68,16 @@ namespace Prakt15
             {
                 string tagName = txtNewTag.Text.Trim();
 
-                if (!EntityValidator.ValidateName(tagName, "тега", out string errorMessage))
+           
+                if (string.IsNullOrWhiteSpace(tagName))
                 {
-                    MessageBox.Show(errorMessage, "Ошибка",
+                    MessageBox.Show("Название тега не может быть пустым", "Ошибка",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     txtNewTag.Focus();
                     return;
                 }
 
+         
                 bool exists = _db.Tags.Any(t =>
                     t.Name != null && t.Name.ToLower() == tagName.ToLower());
 
@@ -86,8 +90,13 @@ namespace Prakt15
                     return;
                 }
 
+                int maxId = _db.Tags.Any() ? _db.Tags.Max(t => t.Id) : 0;
+                int newId = maxId + 1;
+
+           
                 var newTag = new Tag
                 {
+                    Id = newId, 
                     Name = tagName
                 };
 
@@ -99,10 +108,22 @@ namespace Prakt15
 
                 txtNewTag.Clear();
                 LoadTags();
+                txtNewTag.Focus();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при добавлении тега: {ex.Message}", "Ошибка",
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.AppendLine("Ошибка при добавлении тега:");
+                errorMessage.AppendLine(ex.Message);
+
+                if (ex.InnerException != null)
+                {
+                    errorMessage.AppendLine();
+                    errorMessage.AppendLine("Детали:");
+                    errorMessage.AppendLine(ex.InnerException.Message);
+                }
+
+                MessageBox.Show(errorMessage.ToString(), "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -113,12 +134,16 @@ namespace Prakt15
             {
                 if (sender is Button button && button.Tag != null)
                 {
-                    if (double.TryParse(button.Tag.ToString(), out double tagId))
+                    if (int.TryParse(button.Tag.ToString(), out int tagId))
                     {
-                        var tag = _db.Tags
-                            .FirstOrDefault(t => Math.Abs(t.Id - tagId) < 0.001);
+                        var tag = _db.Tags.FirstOrDefault(t => t.Id == tagId);
 
-                        if (tag == null) return;
+                        if (tag == null)
+                        {
+                            MessageBox.Show("Тег не найден", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
 
                         var editWindow = new EditTagWindow(tag);
                         if (editWindow.ShowDialog() == true)
@@ -141,15 +166,17 @@ namespace Prakt15
             {
                 if (sender is Button button && button.Tag != null)
                 {
-                    if (double.TryParse(button.Tag.ToString(), out double tagId))
+                    if (int.TryParse(button.Tag.ToString(), out int tagId))
                     {
-                        var tag = _db.Tags
-                            .FirstOrDefault(t => Math.Abs(t.Id - tagId) < 0.001);
+                        var tag = _db.Tags.FirstOrDefault(t => t.Id == tagId);
 
-                        if (tag == null) return;
-
-                        bool hasProducts = _db.ProductTags.Any(pt =>
-                            pt.TagId.HasValue && Math.Abs(pt.TagId.Value - tagId) < 0.001);
+                        if (tag == null)
+                        {
+                            MessageBox.Show("Тег не найден", "Ошибка",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                        bool hasProducts = _db.ProductTags.Any(pt => pt.TagId == tagId);
 
                         if (hasProducts)
                         {
@@ -169,13 +196,21 @@ namespace Prakt15
 
                         if (result == MessageBoxResult.Yes)
                         {
-                            _db.Tags.Remove(tag);
-                            _db.SaveChanges();
+                            try
+                            {
+                                _db.Tags.Remove(tag);
+                                _db.SaveChanges();
 
-                            MessageBox.Show($"Тег \"{tag.Name}\" успешно удален", "Успех",
-                                MessageBoxButton.OK, MessageBoxImage.Information);
+                                MessageBox.Show($"Тег \"{tag.Name}\" успешно удален", "Успех",
+                                    MessageBoxButton.OK, MessageBoxImage.Information);
 
-                            LoadTags();
+                                LoadTags();
+                            }
+                            catch (Exception deleteEx)
+                            {
+                                MessageBox.Show($"Ошибка при удалении: {deleteEx.Message}", "Ошибка",
+                                    MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
                     }
                 }
@@ -197,9 +232,25 @@ namespace Prakt15
 
             string searchText = txtSearch.Text.ToLower();
             var filtered = _tags.Where(t =>
-                t.Name != null && t.Name.ToLower().Contains(searchText)).ToList();
+                t.Name != null && t.Name.ToLower().Contains(searchText))
+                .ToList();
 
             lstTags.ItemsSource = filtered;
         }
+
+        private void TxtNewTag_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                BtnAdd_Click(sender, e);
+            }
+        }
+
+        private void BtnClearSearch_Click(object sender, RoutedEventArgs e)
+        {
+            txtSearch.Clear();
+            lstTags.ItemsSource = _tags;
+        }
     }
 }
+

@@ -40,15 +40,21 @@ namespace Prakt15
         {
             try
             {
-                var categories = _db.Categories.ToList();
+                var categories = _db.Categories
+                    .OrderBy(c => c.Name)
+                    .ToList();
                 cmbCategory.ItemsSource = categories;
                 cmbCategory.DisplayMemberPath = "Name";
 
-                var brands = _db.Brands.ToList();
+                var brands = _db.Brands
+                    .OrderBy(b => b.Name)
+                    .ToList();
                 cmbBrand.ItemsSource = brands;
                 cmbBrand.DisplayMemberPath = "Name";
 
-                var allTags = _db.Tags.ToList();
+                var allTags = _db.Tags
+                    .OrderBy(t => t.Name)
+                    .ToList();
                 _tagViewModels = allTags.Select(t => new TagViewModel
                 {
                     Id = t.Id,
@@ -73,9 +79,9 @@ namespace Prakt15
             {
                 txtName.Text = _product.Name ?? string.Empty;
                 txtDescription.Text = _product.Description ?? string.Empty;
-                txtPrice.Text = _product.Price?.ToString() ?? "0";
+                txtPrice.Text = _product.Price?.ToString("F2") ?? "0";
                 txtStock.Text = _product.Stock?.ToString() ?? "0";
-                txtRating.Text = _product.Rating?.ToString() ?? "0";
+                txtRating.Text = _product.Rating?.ToString("F1") ?? "0";
                 txtCreatedAt.Text = _product.CreatedAt?.ToString("yyyy-MM-dd") ?? DateTime.Now.ToString("yyyy-MM-dd");
 
                 if (_product.CategoryId.HasValue)
@@ -124,8 +130,8 @@ namespace Prakt15
 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            try { 
+         
                 if (!ProductValidator.ValidateRequiredField(txtName.Text, "название товара", out string errorMessage))
                 {
                     MessageBox.Show(errorMessage, "Ошибка",
@@ -149,7 +155,6 @@ namespace Prakt15
                     txtStock.Focus();
                     return;
                 }
-
                 if (!DateTime.TryParse(txtCreatedAt.Text, out DateTime createdAt))
                 {
                     MessageBox.Show("Введите корректную дату в формате ГГГГ-ММ-ДД", "Ошибка",
@@ -157,7 +162,6 @@ namespace Prakt15
                     txtCreatedAt.Focus();
                     return;
                 }
-
                 if (!ProductValidator.ValidateRating(txtRating.Text, out double? rating, out errorMessage))
                 {
                     MessageBox.Show(errorMessage, "Ошибка",
@@ -165,7 +169,6 @@ namespace Prakt15
                     txtRating.Focus();
                     return;
                 }
-
                 if (cmbCategory.SelectedItem == null)
                 {
                     MessageBox.Show("Выберите категорию", "Ошибка",
@@ -173,7 +176,6 @@ namespace Prakt15
                     cmbCategory.Focus();
                     return;
                 }
-
                 if (cmbBrand.SelectedItem == null)
                 {
                     MessageBox.Show("Выберите бренд", "Ошибка",
@@ -181,38 +183,52 @@ namespace Prakt15
                     cmbBrand.Focus();
                     return;
                 }
-
                 _product ??= new Product();
-
-                _product.Name = txtName.Text;
-                _product.Description = txtDescription.Text;
+                if (_product.Id == 0)
+                {
+                    int maxId = _db.Products.Any() ? _db.Products.Max(p => p.Id) : 0;
+                    _product.Id = maxId + 1;
+                }
+                _product.Name = txtName.Text.Trim();
+                _product.Description = txtDescription.Text.Trim();
                 _product.Price = price;
                 _product.Stock = stock;
-                _product.CreatedAt = createdAt; 
+                _product.CreatedAt = createdAt;
                 _product.Rating = rating;
-
                 _product.CategoryId = ((Category)cmbCategory.SelectedItem).Id;
                 _product.BrandId = ((Brand)cmbBrand.SelectedItem).Id;
 
-                if (_product.Id == 0)
+                if (_db.Products.Any(p => p.Id == _product.Id))
                 {
-                    _db.Products.Add(_product);
+                  
+                    _db.Products.Update(_product);
                 }
                 else
                 {
-                    _db.Products.Update(_product);
+                  
+                    _db.Products.Add(_product);
                 }
 
                 _db.SaveChanges();
 
-                var selectedTagIds = _tagViewModels.Where(t => t.IsSelected).Select(t => t.Id).ToList();
-                var currentProductTags = _db.ProductTags.Where(pt => pt.ProductId == _product.Id).ToList();
+    
+                var selectedTagIds = _tagViewModels
+                    .Where(t => t.IsSelected)
+                    .Select(t => t.Id)
+                    .ToList();
+
+                var currentProductTags = _db.ProductTags
+                    .Where(pt => pt.ProductId == _product.Id)
+                    .ToList();
 
                 var tagsToRemove = currentProductTags
                     .Where(pt => pt.TagId.HasValue && !selectedTagIds.Contains(pt.TagId.Value))
                     .ToList();
 
-                _db.ProductTags.RemoveRange(tagsToRemove);
+                if (tagsToRemove.Any())
+                {
+                    _db.ProductTags.RemoveRange(tagsToRemove);
+                }
 
                 var currentTagIds = currentProductTags
                     .Where(pt => pt.TagId.HasValue)
@@ -228,7 +244,11 @@ namespace Prakt15
                     })
                     .ToList();
 
-                _db.ProductTags.AddRange(tagsToAdd);
+                if (tagsToAdd.Any())
+                {
+                    _db.ProductTags.AddRange(tagsToAdd);
+                }
+
                 _db.SaveChanges();
 
                 MessageBox.Show("Товар успешно сохранен", "Успех",
@@ -239,7 +259,27 @@ namespace Prakt15
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при сохранении: {ex.Message}", "Ошибка",
+
+                StringBuilder errorMessage = new StringBuilder();
+                errorMessage.AppendLine("Ошибка при сохранении товара:");
+                errorMessage.AppendLine(ex.Message);
+
+                if (ex.InnerException != null)
+                {
+                    errorMessage.AppendLine();
+                    errorMessage.AppendLine("Детали:");
+                    errorMessage.AppendLine(ex.InnerException.Message);
+
+                    if (ex.InnerException.Message.Contains("id") ||
+                        ex.InnerException.Message.Contains("ID") ||
+                        ex.InnerException.Message.Contains("NULL"))
+                    {
+                        errorMessage.AppendLine("\nВозможная причина: Проблема с генерацией ID товара.");
+                        errorMessage.AppendLine("Попробуйте перезапустить приложение.");
+                    }
+                }
+
+                MessageBox.Show(errorMessage.ToString(), "Ошибка",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -252,18 +292,27 @@ namespace Prakt15
 
         private void TxtPrice_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            TextBox textBox = sender as TextBox;
+
             foreach (char c in e.Text)
             {
-                if (!char.IsDigit(c) && c != '.')
+                if (!char.IsDigit(c) && c != '.' && c != '-')
                 {
                     e.Handled = true;
                     return;
                 }
             }
 
-            if (sender is TextBox textBox && e.Text == "." && textBox.Text.Contains('.'))
+            if (e.Text == "." && textBox.Text.Contains('.'))
             {
                 e.Handled = true;
+                return;
+            }
+
+            if (e.Text == "-" && (textBox.Text.Length > 0 || textBox.Text.Contains('-')))
+            {
+                e.Handled = true;
+                return;
             }
         }
 
@@ -281,6 +330,8 @@ namespace Prakt15
 
         private void TxtRating_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
+            TextBox textBox = sender as TextBox;
+
             foreach (char c in e.Text)
             {
                 if (!char.IsDigit(c) && c != '.')
@@ -289,10 +340,22 @@ namespace Prakt15
                     return;
                 }
             }
-
-            if (sender is TextBox textBox && e.Text == "." && textBox.Text.Contains('.'))
+            if (e.Text == "." && textBox.Text.Contains('.'))
             {
                 e.Handled = true;
+                return;
+            }
+        }
+
+        private void TxtCreatedAt_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            foreach (char c in e.Text)
+            {
+                if (!char.IsDigit(c) && c != '-' && c != ' ')
+                {
+                    e.Handled = true;
+                    return;
+                }
             }
         }
     }
